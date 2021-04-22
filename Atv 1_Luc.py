@@ -29,10 +29,10 @@ def handle_input(col, data):
     entry = input()
     try:
         idx = col.index(entry)
-        data.sort(key=lambda x: x[idx], reverse=True)
+        data.sort(key=lambda x: x[idx])
         print("O top 5 de cidades com melhor ", entry, ":", sep='')
         for i in range(5):
-            print(data[i][1], "com:", data[i][idx])
+            print(data[i][1], "em:", data[i][idx], "Lugar")
         print()
         return True
     except ValueError:
