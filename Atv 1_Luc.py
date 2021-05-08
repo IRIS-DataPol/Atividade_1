@@ -1,6 +1,14 @@
 import pandas as pd
 
 
+def load_position_data():
+    xlsx_path = "Arquivos/Posicoes.xlsx"
+    df = pd.read_excel(xlsx_path, engine='openpyxl')
+    return pd.read_excel(xlsx_path, engine='openpyxl', header=4, usecols="A,B,T,AG,AS,AX,BM,CA,CK,CO",
+                         names=['UF', 'Cidade', df.iloc[0][19], df.iloc[0][32], df.iloc[0][44], df.iloc[0][49],
+                                df.iloc[0][64], df.iloc[0][78], df.iloc[0][88], df.iloc[2][92]])
+
+
 def list_of_items(data):
     lst = list(data.items())
     lst = list(lst[0])
@@ -9,10 +17,10 @@ def list_of_items(data):
     return lst
 
 
-def create_dataset_list():
+def create_dataset_list(lst):
     data = []
     for col in columns:
-        column = pd.DataFrame(file, columns=[col])
+        column = pd.DataFrame(lst, columns=[col])
         column_data = list_of_items(column)
         for idx, item in enumerate(column_data):
             if len(data) <= idx:
@@ -60,12 +68,8 @@ def handling_input(col, data):
 
 
 if __name__ == '__main__':
-    file = pd.read_excel(r'Arquivos/Posicoes.xlsx')
-    columns = list(file)
-    all_data = create_dataset_list()
+    cities = load_position_data()
+    columns = list(cities)
+    all_data = create_dataset_list(cities)
     while handling_input(columns, all_data):
         pass
-
-
-
-
